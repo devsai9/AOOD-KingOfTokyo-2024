@@ -4,13 +4,14 @@ import java.util.ArrayList;
 public class GameEngine {
     private State state = new State();
     private Player[] players = new Player[3];
+    private boolean[] deadPlayers = new boolean[3];
+        
     private int playersLeft = 0;
-    private boolean[] deadPlayers = {false, false, false};
     private int turnsInTokyo = 0;
     
+    // SETTINGS
     boolean outputting = false;
     boolean pausing = false;
-    
     boolean oneGame = false;
     
     // int currentPlayer = -1;
@@ -65,8 +66,7 @@ public class GameEngine {
             players[0] = new PlayerAI_GeeterPriffin();
             players[1] = new PlayerNaive();
             players[2] = new PlayerNaive();
-            // players[3] = new PlayerNaive();
-            
+
             deadPlayers = new boolean[players.length];
             
             for (int j = 0; j < players.length; j++) {
