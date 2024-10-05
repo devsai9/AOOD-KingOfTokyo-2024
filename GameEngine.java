@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class GameEngine {
     private State state = new State();
-    private Player[] players = new Player[3];
-    private boolean[] deadPlayers = new boolean[3];
+    private Player[] players = new Player[8];
+    private boolean[] deadPlayers = new boolean[8];
         
     private int playersLeft = 0;
     private int turnsInTokyo = 0;
@@ -14,10 +14,6 @@ public class GameEngine {
     boolean pausing = false;
     boolean oneGame = false;
     
-    // int currentPlayer = -1;
-    // int inTokyo = -1;
-    // int[] playerHealthsL = new int[3];
-    // int[] playerFamesL = new int[3];
 
     public GameEngine() {
         if (!oneGame) {
@@ -28,7 +24,7 @@ public class GameEngine {
         state.setInTokyo(-1);
 
         players[0] = new PlayerAI_GeeterPriffin();
-        players[1] = new PlayerNaive();
+        players[1] = new NaivePlusPlus();
         players[2] = new PlayerNaive();
 
         deadPlayers = new boolean[players.length];
@@ -55,17 +51,23 @@ public class GameEngine {
     }
     
     private void run1000Games() {
-        int numOf0 = 0;
-        int numOf1 = 0;
-        int numOf2 = 0;
-        int numOf3 = 0;
+        int[] results = new int[players.length];
+        for (int ijk = 0; ijk < results.length; ijk++) {
+            results[ijk] = 0;
+        }
+        
         
         for (int i = 0; i < 1000; i++) {
             state.setInTokyo(-1);
 
-            players[0] = new PlayerAI_GeeterPriffin();
-            players[1] = new PlayerNaive();
-            players[2] = new PlayerNaive();
+            players[0] = new NaivePlusPlus();
+            players[1] = new PlayerAI_GeeterPriffin();
+            players[2] = new PlayerAI_John();
+            players[3] = new PlayerAI_Kirby();
+            players[4] = new PlayerAI_Loser();
+            players[5] = new PlayerAI_placeholder(6);
+            players[6] = new PlayerAI_Shane();
+            players[7] = new PlayerAI_TAIbleFlip();
 
             deadPlayers = new boolean[players.length];
             
@@ -89,18 +91,12 @@ public class GameEngine {
     
             state.setCurrentPlayer((int) Math.floor(Math.random() * players.length));
             int res = runGame();
-            switch (res) {
-                case 0: numOf0++; break;
-                case 1: numOf1++; break;
-                case 2: numOf2++; break;
-                // case 3: numOf3++; break;
-            }
+            results[res]++;
         }
         
-        System.out.println("Player #1 (AI GeeterPriffin) Won: " + (((double) numOf0) / 1000.0 * 100.0) + "% of the time.");
-        System.out.println("Player #2 (Naive) Won: " + (((double) numOf1) / 1000.0 * 100.0) + "% of the time.");
-        System.out.println("Player #3 (Naive) Won: " + (((double) numOf2) / 1000.0 * 100.0) + "% of the time.");
-        // System.out.println("Player Naive #3 Won: " + (((double) numOf3) / 1000.0 * 100.0) + "% of the time.");
+        for (int j = 0; j < results.length; j++) {
+            System.out.println("Player #" + (j+1) + " (AI) Won: " + (((double) results[j]) / 1000.0 * 100.0) + "% of the time.");
+        }
     }
 
     private void setFameHelper(int player, int deltaFame) {
