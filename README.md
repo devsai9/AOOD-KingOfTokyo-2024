@@ -1,4 +1,5 @@
 This project was made for our Advanced Object-Oriented Design (AOOD) class. <br>
+<ins>This repository and any of its contributors are NOT affiliated with the copyright, trademarks, or any similar legal reservations that the original King of Tokyo game or its affiliated people may possess, nor are we related to the game itself. This project was made purely as a class project and for educational/learning purposes.</ins>
 # King of Tokyo Game Engine (AOOD-KingOfTokyo-2024)
 **A Game Engine for the King of Tokyo game!** <br>
 As a part of an educational project on Java, our AOOD class worked in groups to code a game engine for the King of Tokyo game.
